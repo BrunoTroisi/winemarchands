@@ -7,7 +7,9 @@
       <div class="container mt-3">
           <div class="row">
             <div class="col-md-12">
-              <router-view></router-view>
+              <router-view :key="$route.fullPath"></router-view> 
+              <!-- esa key hace que al navegar dentro de la misma ruta, se rerenderice la vista -->
+              <!-- lo usamos para las categorias -->
             </div>
           </div>
       </div>

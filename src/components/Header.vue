@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="sticky topnav-right">
+    <div class="fixed-top topnav-right my-2">
       <nav
-        class="navbar topnav-right d-flex content-justify-right navbar-expand-sm"
+        class="navbar bg-light rounded-left topnav-right d-flex content-justify-right navbar-expand-sm"
         role="navigation"
       >
         <div
@@ -15,24 +15,24 @@
               to="/login"
               tag="li"
               v-if="!isLoggedIn"
-              class="nav-item"
+              class="nav-item mr-1"
               active-class="active"
             >
               <a class="nav-link btn btn-outline-secondary">Login</a>
             </router-link>
-            <li v-if="isLoggedIn" class="li-pointer nav-item">
+            <li v-if="isLoggedIn" class="li-pointer nav-item mr-1">
               <a @click="logout" class="nav-link btn btn-outline-secondary">Logout</a>
             </li>
             <router-link
               to="/register"
               tag="li"
               v-if="!isLoggedIn"
-              class="nav-item"
+              class="nav-item mr-1"
               active-class="active"
             >
               <a class="nav-link btn btn-outline-secondary">Register</a>
             </router-link>
-            <li>
+            <li class="nav-item mr-1">
               <router-link
                 to="/cart"
                 class="nav-link btn btn-opacity"
@@ -58,63 +58,17 @@
     >
       <router-link
         class="nav-item nav-link "
-        :to="{ name: 'tintos' }"
+        :to="{ name: 'mainpage' }"
       >
-        TINTOS
+        TODO
       </router-link>
       <router-link
         class="nav-item nav-link "
-        :to="{ name: 'blancos' }"
+        :to="{ name: 'category', params:{category: category} }"
+        v-for="category of categories"
+        :key="category"
       >
-        BLANCOS
-      </router-link>
-      <router-link
-        class="nav-item nav-link "
-        :to="{ name: 'rosas' }"
-      >
-        ROSAS
-      </router-link>
-      <router-link
-        class="nav-item nav-link "
-        :to="{ name: 'espumosos' }"
-      >
-        ESPUMOSOS
-      </router-link>
-      <router-link
-        class="nav-item nav-link "
-        :to="{ name: 'otrosvinos' }"
-      >
-        OTROS VINOS
-      </router-link>
-      <router-link
-        class="nav-item nav-link "
-        :to="{ name: 'importados' }"
-      >
-        IMPORTADOS
-      </router-link>
-      <router-link
-        class="nav-item nav-link "
-        :to="{ name: 'magnum' }"
-      >
-        MAGNUM
-      </router-link>
-      <router-link
-        class="nav-item nav-link "
-        :to="{ name: 'otrasbebidas' }"
-      >
-        OTRAS BEBIDAS
-      </router-link>
-      <router-link
-        class="nav-item nav-link "
-        :to="{ name: 'combos' }"
-      >
-        COMBOS
-      </router-link>
-      <router-link
-        class="nav-item nav-link "
-        :to="{ name: 'aceites' }"
-      >
-        ACEITES
+        {{category}}
       </router-link>
     </div>
   </div>
@@ -122,9 +76,22 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+const cate = [
+  'tintos',
+  'blancos',
+  'rosas',
+  'espumosos',
+  'importados',
+  'magnum',
+  'combos',
+  'otros',
+  'bebidas',
+  'aceite',
+]
 export default {
   data() {
     return {
+      categories: cate, 
       isNavOpen: false,
     };
   },

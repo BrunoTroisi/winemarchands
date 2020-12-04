@@ -15,11 +15,6 @@
       </div>
     </div>
   </div>
-  <div class="row mx-auto">
-    <button class="btn" @click="find=''">Todas</button>
-    <button class="btn" v-for="(cat, i) of productsCategories()" :key="i" @click="find = cat">{{cat}}</button>
-  </div>
-
   <div class="row" v-if="!isProductLoading">
     <app-product-item v-for="prod in filteredProducts()" :item="prod" :key="prod.id" :displayList="displayList"></app-product-item>
   </div>
@@ -35,7 +30,7 @@ import GridLoader from 'vue-spinner/src/GridLoader.vue';
 export default {
   data() {
     return {
-      find: '',
+      find: this.$route.params.category,
       loaderColor: "#6E2C35",
       loaderSize: "50px",
       displayList: false
@@ -52,17 +47,10 @@ export default {
     changeDisplay(isList) {
       this.displayList = isList;
     },
-    productsCategories(){
-      const cats = [];
-      this.products.forEach(prod => {
-        prod.category.forEach(c => cats.push(c));
-      })
-      return new Set(cats.sort()); // Devuelve las categorias sin repetir y ordenadas alfabeticamente
-    },
     filteredProducts(){
       // Si no hay una categoria en especial -> da todo
       // Hay una cate en especial -> los elementos de esa categoria
-      return this.products.filter(p => !this.find || p.category.includes(this.find));
+      return this.products.filter(p => !this.find || !p.category || p.category.includes(this.find));
     }
   }
 }
