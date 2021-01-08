@@ -3,11 +3,11 @@
     <table id="cart" class="table table-hover table-sm">
       <thead>
         <tr>
-          <th style="width:50%">Product</th>
-          <th style="width:10%">Price</th>
-          <th style="width:8%">Quantity</th>
-          <th style="width:22%" class="text-center">Subtotal</th>
-          <th style="width:10%"></th>
+          <th style="width:50%" id="product">Product</th>
+          <th style="width:10%" id="price">Price</th>
+          <th style="width:8%" id="quantity">Quantity</th>
+          <th style="width:22%" id="subtotal" class="text-center">Subtotal</th>
+          <th style="width:10%" id="idk dude"></th>
         </tr>
       </thead>
 
@@ -28,7 +28,7 @@
         <tr>
           <td>
             <button class="btn btn-warning" @click="saveShoppingCartLocal">
-              <i class="fa fa-angle-left"></i> Guardar y seguir comprando
+              <em class="fa fa-angle-left"></em> Guardar y seguir comprando
             </button>
           </td>
           <td colspan="2" class="d-none d-sm-table-cell"></td>
@@ -38,7 +38,7 @@
           <td class="px-0">
             <button class="btn opacity" @click="checkout">
               <span class="text-nowrap"
-                >Proceder al pago <i class="fa fa-angle-right d-inline"></i
+                >Proceder al pago <em class="fa fa-angle-right d-inline"></em
               ></span>
             </button>
           </td>
@@ -79,7 +79,7 @@ export default {
         for (let prodIdx = 0; prodIdx < prodList.length; prodIdx++) {
           if (prodList[prodIdx].id == item.id) {
             if (prodList[prodIdx].quantity < item.quantity) {
-              message = `Only ${prodList[prodIdx].quantity} ${item.title} available in stock`
+              message = `Solo hay ${prodList[prodIdx].quantity} de ${item.title} disponible en stock`
               isValid = false
               return
             }
@@ -106,7 +106,7 @@ export default {
           }).then(() => {
             this.addMessage({
               messageClass: 'success',
-              message: 'Tu carrito fue guardado correctamente',
+              message: 'Tu cava fue guardada correctamente',
             })
             this.$router.push('/')
           })
@@ -119,7 +119,7 @@ export default {
       } else {
         this.addMessage({
           messageClass: 'warning',
-          message: 'Por favor, inicia sesión para guardar tu carrito',
+          message: 'Por favor, inicia sesión para guardar tu cava',
         })
       }
     },
@@ -128,7 +128,7 @@ export default {
         if (!this.cartItemList || this.cartItemList.length == 0) {
           this.addMessage({
             messageClass: 'warning',
-            message: 'Tu carrito está vacío',
+            message: 'Tu cava está vacía',
           })
           return
         }
@@ -173,6 +173,14 @@ export default {
 <style lang="scss" scoped>
 .list-shopping-cart-leave-active {
   transition: all 0.4s;
+}
+
+th{
+  font-size: 15px;
+}
+
+td{
+  font-size: 15px;
 }
 
 .list-shopping-cart-leave-to {

@@ -2,7 +2,7 @@
   <div>
     <div class="fixed-top topnav-right my-2">
       <nav
-        class="navbar bg-light rounded-left topnav-right d-flex content-justify-right navbar-expand-sm"
+        class="navbar rounded-left topnav-right d-flex content-justify-right navbar-expand-sm"
         role="navigation"
       >
         <div
@@ -12,33 +12,24 @@
         >
           <ul class="nav navbar-nav">
             <router-link
-              to="/login"
+              to="/inicio%20sesion"
               tag="li"
               v-if="!isLoggedIn"
               class="nav-item mr-1"
               active-class="active"
             >
-              <a class="nav-link btn btn-outline-secondary">Login</a>
+              <a class="nav-link bg-light btn btn-outline-secondary">Iniciar sesión</a>
             </router-link>
             <li v-if="isLoggedIn" class="li-pointer nav-item mr-1">
-              <a @click="logout" class="nav-link btn btn-outline-secondary">Logout</a>
+              <a @click="logout" class="nav-link bg-light btn btn-outline-secondary">Cerrar sesión</a>
             </li>
-            <router-link
-              to="/register"
-              tag="li"
-              v-if="!isLoggedIn"
-              class="nav-item mr-1"
-              active-class="active"
-            >
-              <a class="nav-link btn btn-outline-secondary">Register</a>
-            </router-link>
             <li class="nav-item mr-1">
               <router-link
-                to="/cart"
+                to="/carrito"
                 class="nav-link btn btn-opacity"
                 tag="button"
-              ><i class="fas fa-shopping-cart"></i>
-                Mi carrito
+              ><!--<em class="fas fa-shopping-cart"></em>--><img class="cava" src="@/assets/fridge.svg"/>
+                Mi cava
                 <span class="badge badge-light"
                   >{{ numItems }} ($ {{ cartValue }})</span
                 >
@@ -48,7 +39,7 @@
         </div>
       </nav>
     </div>
-    <div>
+    <div class="justify-content-center text-center align-items-center">
       <router-link to="/" class="navbar-brand mr-auto"
         ><img src="../assets/logo.png" class="logo" alt="..."
       /></router-link>
@@ -58,9 +49,9 @@
     >
       <router-link
         class="nav-item nav-link "
-        :to="{ name: 'mainpage' }"
+        :to="{ name: 'search' }"
       >
-        TODO
+      <em class="fas fa-search"></em>
       </router-link>
       <router-link
         class="nav-item nav-link "
@@ -71,24 +62,38 @@
         {{category}}
       </router-link>
     </div>
+    <Filtermenu/>
+    <div class="fixed-bottom topnav-right my-2">
+              <router-link
+                v-if="$route.path != '/'"
+                to="/"
+                class="nav-link btn btn-opacity"
+                tag="button"
+              ><em class="fas fa-home"></em>
+              </router-link>
+    </div>
   </div>
 </template>
 
 <script>
+import Filtermenu from "./Filtermenu.vue"
 import { mapActions, mapGetters } from "vuex";
 const cate = [
   'tintos',
   'blancos',
-  'rosas',
+  'rosados',
   'espumosos',
+  'otros vinos',
   'importados',
   'magnum',
+  'otras bebidas',
   'combos',
-  'otros',
-  'bebidas',
-  'aceite',
+  'aceites',
 ]
 export default {
+  components: {
+      Filtermenu
+  },
   data() {
     return {
       categories: cate, 
@@ -176,4 +181,10 @@ div.scrollmenu a:hover {
 }
 
 .btn{font-size: 15px;}
+
+.cava{
+filter: brightness(0) invert(1);
+  width: 20px;
+  height: 20px;
+}
 </style>

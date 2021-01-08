@@ -5,16 +5,19 @@
       <img :src="item.thumbnail_url" alt="" class="grow thumbnail-image card-img-top intrinsic-item p-3">
     </div>
     <div class="card-body">
-      <router-link :to="'/product/' + item.id" tag="h5" class="card-title"><a>{{ item.title }}</a></router-link>
-      <h6 class="card-subtitle mb-2 remain">{{ item.quantity }} left in stock</h6>
+      <router-link :to="'/producto/' + item.id" tag="h5" class="card-title"><a>{{ item.title }}</a></router-link>
+      <h6 v-if="item.quantity === -1" class="card-subtitle mb-2 remain"> Próximamente</h6>
+      <h6 v-if="item.quantity === 0" class="card-subtitle mb-2 remain"> Sin stock</h6>
+      <h6 v-if="item.quantity < 1000 && item.quantity > 0" class="card-subtitle mb-2 remain"> Menos de {{ item.quantity }} en stock</h6>
 
       <p class="card-text truncate">{{ item.description | shortDescription}}</p>
 
       <div class="row">
         <p class="col-6 lead">${{ item.price }}</p>
         <p class="col-6">
-          <button class="btn opacity pull-right" :disabled="item.quantity === 0" @click="addItem">
-            Add to cart
+          <button class="btn opacity pull-right" :disabled="item.quantity <= 0" @click="addItem">
+            <!--<em class="fas fa-shopping-cart"></em>-->
+        <img class="cava" src="@/assets/fridge.svg"> A la cava
           </button>
         </p>
       </div>
@@ -134,7 +137,6 @@ div.card {
   font-size: 15px;
 }
 
-
 .item.list-group-item:before, .item.list-group-item:after
 {
     display: table;
@@ -143,5 +145,11 @@ div.card {
 
 .item.list-group-item:after {
   clear: both;
+}
+
+.cava{
+filter: brightness(0) invert(1);
+  width: 20px;
+  height: 20px;
 }
 </style>

@@ -13,7 +13,6 @@ Vue.use(VueRouter);
 
 firebaseListener(authStatusChange);
 
-
 const router = new VueRouter({
 	mode: 'history',
 	routes

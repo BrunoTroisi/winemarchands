@@ -1,15 +1,18 @@
 <template>
+<div class="container mt-3">
+          <div class="row">
+            <div class="col-md-12">
   <div class="row">
     <div class="col-md-6 offset-md-3 col-sm-10 offset-sm-1">
       <form id="register-form" role="form" @submit.prevent="onSubmit">
-        <h3 class="text-center">Register</h3>
+        <h3 class="text-center"><em class="fas fa-user-plus"></em> Registrarse</h3>
         <div class="form-group">
           <input
             type="email"
             name="email"
             id="email"
             class="form-control"
-            placeholder="Email Address"
+            placeholder="Correo electrónico"
             value
             v-model="email"
             required
@@ -21,23 +24,23 @@
             name="password"
             id="password"
             class="form-control"
-            placeholder="Password"
+            placeholder="Contraseña"
             v-model="password"
             required
           />
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-opacity" style="width: 100%" :disabled="isLoading">
-            <i v-if="isLoading" class="fa fa-spinner fa-spin" />
-            Register
+            <em v-if="isLoading" class="fa fa-spinner fa-spin" />
+            Registrarse
           </button>
         </div>
         <div class="form-group">
           <div class="row">
             <div class="col-lg-12">
               <div class="text-center">
-                <router-link to="/login">
-                  <a>Login</a>
+                <router-link to="/inicio%20sesion">
+                  <a class="nav-link bg-light btn btn-outline-secondary"> <em class="fas fa-user"></em> Iniciar sesión</a>
                 </router-link>
               </div>
             </div>
@@ -46,6 +49,9 @@
       </form>
     </div>
   </div>
+  </div>
+          </div>
+      </div>
 </template>
 
 <script>
@@ -68,7 +74,7 @@ export default {
       }
       this.registerByEmail(data).then(() => {
         this.clearMessage();
-        this.$router.push({ name: 'mainpage' });
+        this.$router.push({ name: 'home' });
       })
         .catch((error) => {
           // console.log('register error', error);

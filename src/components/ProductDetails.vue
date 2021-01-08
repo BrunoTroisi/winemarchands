@@ -19,10 +19,12 @@
         <p> {{ item.description }} </p>
       </div>
       <div class="ratings">
-        <span>{{ item.quantity }} left in stock</span>
+      <span v-if="item.quantity === -1" class="card-subtitle mb-2 remain"> Próximamente</span>
+      <span v-if="item.quantity === 0" class="card-subtitle mb-2 remain"> Sin stock</span>
+      <span v-if="item.quantity < 1000 && item.quantity > 0" class="card-subtitle mb-2 remain"> Menos de {{ item.quantity }} en stock</span>
         <p class="pull-right">
-          <button @click="addItem" :disabled="item.quantity === 0" class="btn btn-success">
-                            Add to cart
+          <button @click="addItem" :disabled="item.quantity <= 0" class="btn btn-opacity">
+                            <!--<em class="fas fa-shopping-cart"></em>--><img class="cava" src="@/assets/fridge.svg"/> A la cava
                         </button>
         </p>
         <div class="clearfix"></div>
@@ -85,9 +87,23 @@ export default {
   padding-left: 10px;
 }
 
+   .btn-opacity {
+    background-color: #990000;
+    color: white;
+  }
+
+  .btn-opacity:hover {
+  background-color: #640000;
+}
+
 .ratings {
   padding-right: 10px;
   padding-left: 10px;
   color: #d17581;
+}
+.cava{
+filter: brightness(0) invert(1);
+  width: 20px;
+  height: 20px;
 }
 </style>

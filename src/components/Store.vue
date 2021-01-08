@@ -1,6 +1,9 @@
 <template>
 <div class="container" :class="{loadingItem: isProductLoading}">
-  <div class="row text-center" v-if="isProductLoading">
+  <div class="container mt-3">
+          <div class="row">
+            <div class="col-md-12">
+  <div class="row justify-content-center text-center" v-if="isProductLoading">
     <grid-loader :loading="isProductLoading" :color="loaderColor" :size="loaderSize"></grid-loader>
   </div>
   <div v-else class="row action-panel">
@@ -16,9 +19,12 @@
     </div>
   </div>
   <div class="row" v-if="!isProductLoading">
-    <app-product-item v-for="prod in filteredProducts()" :item="prod" :key="prod.id" :displayList="displayList"></app-product-item>
+    <div v-if="filteredProducts().length === 0" class="container p-5"><h4>Aún no hay productos que coincidan con {{find}}</h4><hr class="solid"></div>
+    <app-product-item class="" v-for="prod in filteredProducts()" :item="prod" :key="prod.id" :displayList="displayList"></app-product-item>
   </div>
-
+            </div>
+          </div>
+      </div>
 </div>
 </template>
 
@@ -31,7 +37,7 @@ export default {
   data() {
     return {
       find: this.$route.params.category,
-      loaderColor: "#6E2C35",
+      loaderColor: "#990000",
       loaderSize: "50px",
       displayList: false
     }
@@ -48,9 +54,7 @@ export default {
       this.displayList = isList;
     },
     filteredProducts(){
-      // Si no hay una categoria en especial -> da todo
-      // Hay una cate en especial -> los elementos de esa categoria
-      return this.products.filter(p => !this.find || !p.category || p.category.includes(this.find));
+      return this.products.filter(p => !this.find || !p.category || p.category.includes(this.find) || p.title.includes(this.find) || p.description.includes(this.find));
     }
   }
 }
